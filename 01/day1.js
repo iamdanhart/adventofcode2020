@@ -12,7 +12,7 @@ async function getInput() {
     })
 } 
 
-function isAnswer(d1, input) {
+function findAnswer(d1, input) {
     for(let i = 0; i < input.length; i++) {
         d2 = parseInt(input[i], 10);
         if (d1 + d2 == 2020) {
@@ -29,7 +29,7 @@ async function solve() {
      
     let val1, val2;
     let found = input.some(function(element, index) {
-        if ((res = isAnswer(parseInt(element, 10), input.slice(index)))[0]) { // slice the array so we don't double check non-solutions in reverse
+        if ((res = findAnswer(parseInt(element, 10), input.slice(index)))[0]) { // slice the array so we don't double check non-solutions in reverse
             [val1, val2] = res.slice(1);
             return true;
         }
