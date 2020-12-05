@@ -17,7 +17,6 @@ function findAnswer(d1, input) {
         d2 = parseInt(input[i], 10);
         if (d1 + d2 == 2020) {
             console.log("Answer found!")
-            console.log(d1, d2, d1 * d2)
             return [true, d1, d2];
         }
     }
@@ -37,7 +36,7 @@ async function solve() {
     })
 
     if (found) {
-        return [val1, val2]
+        return [val1, val2, val1 * val2]
     }
     return "No solution found"
 }
