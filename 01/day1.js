@@ -4,10 +4,10 @@ const path = require('path')
 async function getInput() {
     return new Promise(function(resolve, reject) {
         fs.readFile(path.resolve(__dirname, 'input'), 'utf8' , (err, data) => {
-        if (err) {
-          reject(err)
-        }
-        resolve(data)
+            if (err) {
+                reject(err);
+            }
+            resolve(data)
       })
     })
 } 
@@ -18,21 +18,30 @@ function isAnswer(d1, input) {
         if (d1 + d2 == 2020) {
             console.log("Answer found!")
             console.log(d1, d2, d1 * d2)
-            return true;
+            return [true, d1, d2];
         }
     }
-    return false;
+    return [false];
 }
 
 async function solve() {
     let input = (await getInput()).split("\n");
      
-    input.every(function(element, index) {
-        if (isAnswer(parseInt(element, 10), input)) {
-            return false;
+    let val1, val2;
+    let found = input.some(function(element, index) {
+        if ((res = isAnswer(parseInt(element, 10), input.slice(index)))[0]) { // slice the array so we don't double check non-solutions in reverse
+            [val1, val2] = res.slice(1);
+            return true;
         }
-        return true
+        return false;
     })
+
+    if (found) {
+        return [val1, val2]
+    }
+    return "No solution found"
 }
 
-solve();
+solve()
+.then(result => console.log(result))
+.catch(reason => console.log("Couldn't solve problem!", reason));
