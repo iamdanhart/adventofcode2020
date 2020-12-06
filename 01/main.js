@@ -43,7 +43,6 @@ async function solvePart2(input) {
     let val1, val2, val3;
     let found = input.some(function(element, index) {
         for (let i = index; i < input.length; i++) {
-            // console.log(element, input[i], element + input[i])
             if ((res = findAnswer(parseInt(element, 10) + parseInt(input[i], 10), input.slice(index)))[0]) {
                 val1 = parseInt(element, 10);
                 val2 = parseInt(input[i], 10)
