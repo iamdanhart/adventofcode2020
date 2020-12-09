@@ -137,7 +137,7 @@ async function solve() {
         .then(numQuestions => console.log("Num questions answered by anyone:", numQuestions));
 
     solvePartTwo(input)
-        .then(possibleSeatIds => console.log("Possible seat IDs:", possibleSeatIds));
+        .then(possibleSeatIds => console.log("Num questions answered by everyone:", possibleSeatIds));
 }
 
 solve();
