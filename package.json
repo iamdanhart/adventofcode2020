@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "adventofcode2020helper": "file:adventofcode2020helper"
+    }
+}

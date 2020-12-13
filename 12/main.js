@@ -1,7 +1,7 @@
 const path = require('path');
 const {exit} = require('process');
 
-const {getInput} = require('../helper')
+const {getInput} = require('adventofcode2020helper')
 
 // R = clockwise, L = counterclockwise
 const compass = ["N", "E", "S", "W"];
