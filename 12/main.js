@@ -94,23 +94,17 @@ function processInstructionWithWaypoint(line, lat, long, waypointLat, waypointLo
                     waypointLong *= -1;
                     break;
                 case 90:
-                    switch (direction) {
-                        case "L":
-                            waypointLong = [waypointLat * -1, waypointLat = waypointLong][0]
-                            break;
-                        case "R":
-                            waypointLong = [waypointLat, waypointLat = waypointLong * -1][0]
-                            break;
+                    waypointLong = [waypointLat, waypointLat = waypointLong * -1][0]
+                    if (direction === "L") {
+                        waypointLong *= -1;
+                        waypointLat *= -1;
                     }
                     break;
                 case 270:
-                    switch (direction) {
-                        case "L":
-                            waypointLong = [waypointLat, waypointLat = waypointLong * -1][0]
-                            break;
-                        case "R":
-                            waypointLong = [waypointLat * -1, waypointLat = waypointLong][0]
-                            break;
+                    waypointLong = [waypointLat * -1, waypointLat = waypointLong][0]
+                    if (direction === "L") {
+                        waypointLong *= -1;
+                        waypointLat *= -1;
                     }
                     break
             }
