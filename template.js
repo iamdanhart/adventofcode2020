@@ -1,6 +1,6 @@
 const path = require('path');
 
-const {getInput} = require('../helper')
+const {getInput} = require('adventofcode2020helper')
 
 /**
  * @param {Array<String>} input
