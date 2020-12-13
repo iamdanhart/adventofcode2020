@@ -72,7 +72,6 @@ function processInstructionWithWaypoint(line, lat, long, waypointLat, waypointLo
     let direction = line[0];
     let mag = parseInt(line.slice(1), 10);
 
-    let tmp;
     switch (direction) {
         case "N":
             waypointLat += mag;
