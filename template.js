@@ -1,4 +1,5 @@
 const path = require('path');
+const process = require('process');
 
 const {getInput} = require('adventofcode2020helper')
 
@@ -20,7 +21,7 @@ async function solvePartTwo(input) { // > 24643
 
 async function solve() {
     let inFile = path.resolve(__dirname, "input")
-    let input = (await getInput(inFile)).split("\n");
+    let input = (await getInput(inFile, 'utf-8')).split("\n");
     
     solvePartOne(Array.from(input))
         .then(num => console.log("Part 1 solution:", num));

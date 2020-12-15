@@ -1,16 +1,6 @@
-const { builtinModules } = require("module");
-
 const fs = require('fs');
+const util = require('util');
 
-async function getInput(fileName) {
-    return new Promise(function(resolve, reject) {
-        fs.readFile(fileName, 'utf8' , (err, data) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data)
-      })
-    })
-}
+const getInput = util.promisify(fs.readFile);
 
 module.exports.getInput = getInput;

@@ -1,7 +1,9 @@
+const fs = require('fs');
 const path = require('path');
+const util = require('util')
 const process = require('process');
 
-const {getInput} = require('adventofcode2020helper')
+const {getInput} = require('adventofcode2020helper');
 
 const bigIntMin = (...departures) => departures.reduce((m, e) => e < m ? e : m);
 
@@ -29,13 +31,13 @@ async function solvePartOne(input) {
     let departureMap = new Map();
     eligibleBuses.forEach(busNo => {
         let busNoInt = parseInt(busNo, 10);
-        departureMap.set(generateEarliestStartingTime(minWaitTime, busNoInt), busNoInt);
+        departureMap.set(generateEarliestStartingTime(minWaitTime, busNoInt, BigInt(busNoInt)), busNoInt);
     })
     let departures = Array.from(departureMap.keys());
     let minDeparture = bigIntMin(...departures);
     let minDepartureBusNo = departureMap.get(minDeparture);
 
-    return BigInt(minDepartureBusNo) * (minDeparture - BigInt(parseInt(minWaitTime, 10)));
+    return BigInt(minDepartureBusNo) * (minDeparture - minWaitTime);
 }
 
 /**
@@ -83,10 +85,10 @@ async function solvePartTwo(input) {
 
 async function solve() {
     let inFile = path.resolve(__dirname, "input")
-    let input = (await getInput(inFile)).split("\n");
+    let input = (await getInput(inFile, 'utf-8')).split("\n");
     
-    // solvePartOne(Array.from(input))
-    //     .then(num => console.log("Part 1 solution:", num)); // 296
+    solvePartOne(Array.from(input))
+        .then(num => console.log("Part 1 solution:", num)); // 296
 
     solvePartTwo(Array.from(input))
         .then(num => console.log("Part 2 solution:", num));
