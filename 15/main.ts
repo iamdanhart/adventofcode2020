@@ -53,7 +53,45 @@ async function solvePartOne(input: Array<string>): Promise<number> {
  * @return {Promise<Number>}
  */
 async function solvePartTwo(input: Array<string>) {
-    return 0;
+    let digits: Array<number> = 
+        Array.from(input[0].split(","))
+        .map(x => {
+            return parseInt(x, 10)});
+    
+    let spokenNumbers: Array<number> = [];
+    let spokenNumbersToIndices: Map<number, Array<number>> = new Map();
+
+    // iterate starting digits
+    digits.forEach(d => {
+        spokenNumbers.push(d);
+        spokenNumbersToIndices.set(d, []);
+        spokenNumbersToIndices.get(d).push(digits.indexOf(d) + 1);
+    })
+
+    let lastNumber: number;
+    let nextNumber: number;
+    let lastNumberMapEntry: Array<number>;
+    let mapEntryLength: number;
+    for(let i: number = spokenNumbers.length; i < 30000000; i++) {
+        lastNumber = spokenNumbers[i-1];
+
+        lastNumberMapEntry = spokenNumbersToIndices.get(lastNumber);
+        mapEntryLength = lastNumberMapEntry.length;
+        if (mapEntryLength <= 1) {
+            nextNumber = 0;
+        } else {
+            nextNumber = 
+            lastNumberMapEntry[mapEntryLength - 1] - 
+                lastNumberMapEntry[mapEntryLength - 2]
+        }
+        spokenNumbers.push(nextNumber);
+        if (!spokenNumbersToIndices.has(nextNumber)) {
+            spokenNumbersToIndices.set(nextNumber, []);
+        }
+        spokenNumbersToIndices.get(nextNumber).push(i + 1);
+    }
+
+    return spokenNumbers[spokenNumbers.length - 1];
 }
 
 async function solve() {
