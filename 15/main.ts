@@ -13,39 +13,30 @@ async function solvePartOne(input: Array<string>): Promise<number> {
             return parseInt(x, 10)});
     
     let spokenNumbers: Array<number> = [];
-    let spokenNumbersToIndices: Map<number, Array<number>> = new Map();
+    let spokenNumbersToIndices: Map<number, number> = new Map();
 
     // iterate starting digits
     digits.forEach(d => {
         spokenNumbers.push(d);
-        spokenNumbersToIndices.set(d, []);
-        spokenNumbersToIndices.get(d).push(digits.indexOf(d) + 1);
+        spokenNumbersToIndices.set(d, digits.indexOf(d) + 1);
     })
 
-    let lastNumber: number;
+    let lastNumber: number = spokenNumbers[spokenNumbers.length - 1];
     let nextNumber: number;
-    let lastNumberMapEntry: Array<number>;
-    let mapEntryLength: number;
+    let lastNumberMapEntry: number;
     for(let i: number = spokenNumbers.length; i < 2020; i++) {
-        lastNumber = spokenNumbers[i-1];
-
         lastNumberMapEntry = spokenNumbersToIndices.get(lastNumber);
-        mapEntryLength = lastNumberMapEntry.length;
-        if (mapEntryLength <= 1) {
-            nextNumber = 0;
+        if (lastNumberMapEntry != undefined) {
+            nextNumber = i - lastNumberMapEntry;
+            spokenNumbersToIndices.set(lastNumber, i);
         } else {
-            nextNumber = 
-            lastNumberMapEntry[mapEntryLength - 1] - 
-                lastNumberMapEntry[mapEntryLength - 2]
+            nextNumber = 0;
+            spokenNumbersToIndices.set(lastNumber, i);
         }
-        spokenNumbers.push(nextNumber);
-        if (!spokenNumbersToIndices.has(nextNumber)) {
-            spokenNumbersToIndices.set(nextNumber, []);
-        }
-        spokenNumbersToIndices.get(nextNumber).push(i + 1);
+        lastNumber = nextNumber;
     }
 
-    return spokenNumbers[spokenNumbers.length - 1];
+    return lastNumber;
 }
 
 /**
@@ -59,34 +50,26 @@ async function solvePartTwo(input: Array<string>) {
             return parseInt(x, 10)});
     
     let spokenNumbers: Array<number> = [];
-    let spokenNumbersToIndices: Map<number, Array<number>> = new Map();
+    let spokenNumbersToIndices: Map<number, number> = new Map();
 
     // iterate starting digits
     digits.forEach(d => {
         spokenNumbers.push(d);
-        spokenNumbersToIndices.set(d, []);
-        spokenNumbersToIndices.get(d).push(digits.indexOf(d) + 1);
+        spokenNumbersToIndices.set(d, digits.indexOf(d) + 1);
     })
 
     let lastNumber: number = spokenNumbers[spokenNumbers.length - 1];
     let nextNumber: number;
-    let lastNumberMapEntry: Array<number>;
-    let nextEntry: Array<number>;
+    let lastNumberMapEntry: number;
     for(let i: number = spokenNumbers.length; i < 30000000; i++) {
         lastNumberMapEntry = spokenNumbersToIndices.get(lastNumber);
-        if (lastNumberMapEntry.length < 2) {
-            nextNumber = 0;
+        if (lastNumberMapEntry != undefined) {
+            nextNumber = i - lastNumberMapEntry;
+            spokenNumbersToIndices.set(lastNumber, i);
         } else {
-            nextNumber = lastNumberMapEntry[1] - lastNumberMapEntry[0];
+            nextNumber = 0;
+            spokenNumbersToIndices.set(lastNumber, i);
         }
-        if (!spokenNumbersToIndices.has(nextNumber)) {
-            spokenNumbersToIndices.set(nextNumber, []);
-        }
-        nextEntry = spokenNumbersToIndices.get(nextNumber);
-        if (nextEntry.length == 2) {
-            nextEntry.shift();
-        }
-        nextEntry.push(i + 1);
         lastNumber = nextNumber;
     }
 
