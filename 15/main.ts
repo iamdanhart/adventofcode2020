@@ -68,13 +68,11 @@ async function solvePartTwo(input: Array<string>) {
         spokenNumbersToIndices.get(d).push(digits.indexOf(d) + 1);
     })
 
-    let lastNumber: number;
+    let lastNumber: number = spokenNumbers[spokenNumbers.length - 1];
     let nextNumber: number;
     let lastNumberMapEntry: Array<number>;
     let mapEntryLength: number;
     for(let i: number = spokenNumbers.length; i < 30000000; i++) {
-        lastNumber = spokenNumbers[i-1];
-
         lastNumberMapEntry = spokenNumbersToIndices.get(lastNumber);
         mapEntryLength = lastNumberMapEntry.length;
         if (mapEntryLength <= 1) {
@@ -84,14 +82,14 @@ async function solvePartTwo(input: Array<string>) {
             lastNumberMapEntry[mapEntryLength - 1] - 
                 lastNumberMapEntry[mapEntryLength - 2]
         }
-        spokenNumbers.push(nextNumber);
         if (!spokenNumbersToIndices.has(nextNumber)) {
             spokenNumbersToIndices.set(nextNumber, []);
         }
         spokenNumbersToIndices.get(nextNumber).push(i + 1);
+        lastNumber = nextNumber;
     }
 
-    return spokenNumbers[spokenNumbers.length - 1];
+    return lastNumber;
 }
 
 async function solve() {
