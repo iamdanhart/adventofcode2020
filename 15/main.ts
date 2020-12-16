@@ -71,21 +71,22 @@ async function solvePartTwo(input: Array<string>) {
     let lastNumber: number = spokenNumbers[spokenNumbers.length - 1];
     let nextNumber: number;
     let lastNumberMapEntry: Array<number>;
-    let mapEntryLength: number;
+    let nextEntry: Array<number>;
     for(let i: number = spokenNumbers.length; i < 30000000; i++) {
         lastNumberMapEntry = spokenNumbersToIndices.get(lastNumber);
-        mapEntryLength = lastNumberMapEntry.length;
-        if (mapEntryLength <= 1) {
+        if (lastNumberMapEntry.length < 2) {
             nextNumber = 0;
         } else {
-            nextNumber = 
-            lastNumberMapEntry[mapEntryLength - 1] - 
-                lastNumberMapEntry[mapEntryLength - 2]
+            nextNumber = lastNumberMapEntry[1] - lastNumberMapEntry[0];
         }
         if (!spokenNumbersToIndices.has(nextNumber)) {
             spokenNumbersToIndices.set(nextNumber, []);
         }
-        spokenNumbersToIndices.get(nextNumber).push(i + 1);
+        nextEntry = spokenNumbersToIndices.get(nextNumber);
+        if (nextEntry.length == 2) {
+            nextEntry.shift();
+        }
+        nextEntry.push(i + 1);
         lastNumber = nextNumber;
     }
 
