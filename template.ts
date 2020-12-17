@@ -6,7 +6,7 @@ const {getInput} = require('adventofcode2020helper')
  * @param {Array<String>} input
  * @return {Promise<Number>}
  */
-async function solvePartOne(input) {
+async function solvePartOne(input: Array<string>): Promise<number> {
     return 0;
 }
 
@@ -14,7 +14,7 @@ async function solvePartOne(input) {
  * @param {Array<String>} input
  * @return {Promise<Number>}
  */
-async function solvePartTwo(input) { // > 24643
+async function solvePartTwo(input: Array<string>): Promise<number> {
     return 0;
 }
 
