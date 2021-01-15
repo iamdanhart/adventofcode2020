@@ -120,7 +120,7 @@ async function solvePartTwo(input: Array<string>): Promise<number> {
 
 async function solve() {
     let inFile = path.resolve(__dirname, "input");
-    let input = (await getInput(inFile, 'utf-8')).split("\n");
+    let input:Array<string> = (await getInput(inFile, 'utf-8')).split("\n");
     
     solvePartOne(Array.from(input))
         .then(num => console.log("Part 1 solution:", num));
